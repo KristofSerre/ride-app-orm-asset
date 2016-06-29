@@ -161,4 +161,52 @@
         <option name="behaviour.log" value="true" />
         <option name="json.api" value="image-transformation-options" />
     </model>
+    <model name="Text" modelClass="ride\web\cms\orm\model\TextModel" entryClass="ride\web\cms\orm\entry\TextEntry">
+        <field name="name" type="string">
+            <validation name="required" />
+            <option name="scaffold.form.omit" value="1" />
+            <option name="scaffold.search" value="1" />
+            <option name="scaffold.order" value="1" />
+        </field>
+        <field name="title" type="string" localized="true">
+            <option name="label" value="label.title" />
+            <option name="scaffold.search" value="1" />
+        </field>
+        <field name="subtitle" type="string" localized="true">
+            <option name="label" value="label.subtitle" />
+            <option name="scaffold.search" value="1" />
+        </field>
+        <field name="body" type="wysiwyg" localized="true">
+            <option name="label" value="label.text" />
+            <option name="scaffold.search" value="1" />
+        </field>
+        <field name="image" model="Asset" relation="belongsTo" localized="true">
+            <option name="label" value="label.image" />
+            <option name="scaffold.form.select" value="assets"/>
+        </field>
+        <field name="imageAlignment" type="string" localized="true">
+            <option name="label" value="label.alignment.image" />
+            <option name="scaffold.form.control" value="select" />
+            <option name="scaffold.form.select.options" value="{&quot;left&quot;:&quot;Left&quot;,&quot;right&quot;:&quot;Right&quot;}" />
+        </field>
+        <field name="format" type="string" localized="true" default="wysiwyg">
+            <option name="scaffold.form.omit" value="1" />
+        </field>
+        <field name="callToActions" model="TextCta" relation="hasMany" dependant="true">
+            <option name="label" value="label.cta" />
+        </field>
+
+        <format name="title">{name}</format>
+        <format name="teaser">{body|striptags|truncate:120}</format>
+        <format name="image">{image.value}</format>
+
+        <option name="behaviour.date" value="true" />
+        <option name="behaviour.log" value="true" />
+        <option name="behaviour.version" value="true" />
+        <option name="order.field" value="name" />
+        <option name="rest.expose" value="true" />
+        <option name="scaffold.controller" value="ride\web\cms\controller\TextScaffoldController" />
+        <option name="scaffold.expose" value="true" />
+        <option name="scaffold.title" value="title.texts" />
+    </model>
 </models>
